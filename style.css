@@ -1,0 +1,406 @@
+/* =========================================================
+   さんぽと自分なら — static stylesheet
+   Palette: warm paper + moss green (a walking trail down
+   the page connects each stop, like a route on a map)
+   ========================================================= */
+
+:root {
+  --paper:        #F7F4EC;
+  --surface:       #FFFFFF;
+  --ink:           #2B2924;
+  --ink-soft:      #6B6656;
+  --moss:          #7C9469;
+  --moss-deep:     #4E6B44;
+  --moss-pale:     #E3EAD9;
+  --line:          #E2DCCB;
+  --shadow:        0 12px 28px -18px rgba(43, 41, 36, 0.35);
+
+  --font-display:  "Shippori Mincho", serif;
+  --font-body:      "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(124, 148, 105, 0.10), transparent 42%),
+    radial-gradient(circle at 88% 18%, rgba(124, 148, 105, 0.07), transparent 38%),
+    radial-gradient(circle at 50% 92%, rgba(78, 107, 68, 0.06), transparent 45%),
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNjAiIGhlaWdodD0iMjYwIj4KICA8ZyBmaWxsPSJub25lIiBzdHJva2U9IiM3Qzk0NjkiIHN0cm9rZS1vcGFjaXR5PSIwLjE2IiBzdHJva2Utd2lkdGg9IjEuNCI+CiAgICA8cGF0aCBkPSJNLTEwLDQwIEMgNDAsMjAgODAsNjAgMTMwLDQwIFMgMjIwLDIwIDI3MCw0MCIvPgogICAgPHBhdGggZD0iTS0xMCw5NSBDIDMwLDEyMCA5MCw3MCAxNDAsOTUgUyAyMzAsMTIwIDI3MCw5NSIvPgogICAgPHBhdGggZD0iTS0xMCwxNjAgQyA1MCwxNDAgOTAsMTg1IDE0MCwxNjAgUyAyMjAsMTM1IDI3MCwxNjAiLz4KICAgIDxwYXRoIGQ9Ik0tMTAsMjE1IEMgNDAsMjM1IDkwLDE5NSAxNTAsMjE1IFMgMjMwLDI0MCAyNzAsMjE1Ii8+CiAgPC9nPgo8L3N2Zz4=");
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: auto, auto, auto, 260px 260px;
+  background-attachment: fixed, fixed, fixed, fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  height: min(60vh, 420px);
+  min-height: 280px;
+  overflow: hidden;
+}
+
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.02);
+  will-change: transform;
+}
+
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 24, 16, 0.15) 0%,
+    rgba(20, 24, 16, 0.15) 45%,
+    rgba(20, 24, 16, 0.72) 100%
+  );
+}
+
+.hero-text {
+  position: absolute;
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+  text-align: center;
+  color: #FBFAF4;
+}
+
+.hero-eyebrow {
+  margin: 0 0 6px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: #D9E4CB;
+}
+
+.hero-text h1 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 6vw, 42px);
+  letter-spacing: 0.04em;
+}
+
+.hero-location {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #E6E3D6;
+}
+
+/* ---------- Entrance animations ---------- */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-fade {
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.16, 0.8, 0.3, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 0.8, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 0.8, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Page shell ---------- */
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 36px 22px 80px;
+}
+
+/* ---------- Table of contents ---------- */
+
+.toc {
+  background: var(--moss-pale);
+  border-radius: 18px;
+  padding: 22px 24px 24px;
+  margin-bottom: 56px;
+}
+
+.toc-label {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  color: var(--moss-deep);
+}
+
+.toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc li + li {
+  margin-top: 10px;
+}
+
+.toc a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14.5px;
+  padding: 7px 0;
+}
+
+.toc-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--moss);
+}
+
+.toc a:hover .toc-dot {
+  background: var(--moss-deep);
+}
+
+/* ---------- Walking timeline ---------- */
+
+.timeline {
+  position: relative;
+  margin-left: 8px;
+  padding-left: 30px;
+  border-left: 2px dashed #CBD6BC;
+}
+
+.stop {
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.stop:last-child {
+  margin-bottom: 0;
+}
+
+.stop::before {
+  content: "";
+  position: absolute;
+  left: -39px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--moss);
+  border: 3px solid var(--paper);
+  box-shadow: 0 0 0 2px var(--moss);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
+}
+
+.stop.is-visible::before {
+  transform: scale(1);
+}
+
+.stop-end::before {
+  border-radius: 3px;
+  background: var(--moss-deep);
+  box-shadow: 0 0 0 2px var(--moss-deep);
+}
+
+.stop-index {
+  margin: 0 0 6px;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  color: var(--moss-deep);
+  font-weight: 500;
+}
+
+.stop h2 {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.stop p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.stop p + p {
+  margin-top: 12px;
+}
+
+/* photos */
+
+.photo-single,
+.photo-pair {
+  margin: 0 0 18px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.photo-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.photo-single img,
+.photo-pair img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 0.8, 0.3, 1);
+}
+
+.photo-single:hover img,
+.photo-pair:hover img {
+  transform: scale(1.045);
+}
+
+/* ---------- Back to top ---------- */
+
+.back-top {
+  display: block;
+  width: fit-content;
+  margin: 70px auto 0;
+  padding: 12px 30px;
+  background: var(--moss-pale);
+  color: var(--moss-deep);
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.back-top:hover {
+  background: var(--moss);
+  color: #fff;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 420px) {
+  .photo-pair {
+    grid-template-columns: 1fr;
+  }
+  .photo-single img,
+  .photo-pair img {
+    height: 200px;
+  }
+  .timeline {
+    padding-left: 24px;
+  }
+  .stop::before {
+    left: -33px;
+  }
+}
+
+@media (min-width: 720px) {
+  .page {
+    padding-top: 56px;
+  }
+  .toc {
+    padding: 26px 30px 28px;
+  }
+}
+
+/* ---------- Floating back-to-top button ---------- */
+
+.fab-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--moss-deep);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(43, 41, 36, 0.5);
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+  z-index: 40;
+}
+
+.fab-top.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.fab-top:hover {
+  background: var(--moss);
+}
+
+/* ---------- Keyboard focus ---------- */
+
+.toc a:focus-visible,
+.back-top:focus-visible,
+.fab-top:focus-visible {
+  outline: 2px solid var(--moss-deep);
+  outline-offset: 3px;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal-fade,
+  .reveal,
+  .stop::before,
+  .hero-photo,
+  .photo-single img,
+  .photo-pair img,
+  .fab-top {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal-fade,
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .stop::before {
+    transform: scale(1);
+  }
+}
