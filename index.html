@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>さんぽと自分なら｜東京都千代田区神田猿楽町1丁目1-2</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="images/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -89,6 +92,16 @@
 </main>
 
 <button class="fab-top" id="fabTop" aria-label="上に戻る">↑</button>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="閉じる">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="前の写真">‹</button>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="次の写真">›</button>
+  <figure class="lightbox-figure">
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <figcaption class="lightbox-caption" id="lightboxCaption"></figcaption>
+  </figure>
+</div>
 
 <script src="script.js"></script>
 </body>
